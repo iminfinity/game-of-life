@@ -1,5 +1,5 @@
-const rows = 24;
-const cols = 48;
+const rows = 150;
+const cols = 350;
 let playing = false;
 
 let state = new Array(rows);
@@ -140,6 +140,8 @@ const setup = () => {
   startButton.onclick = start;
   const clearButton = document.querySelector("#clear");
   clearButton.onclick = clear;
+  const randomButton = document.querySelector("#random");
+  randomButton.onclick = random;
 };
 function start() {
   if (playing) {
@@ -156,8 +158,31 @@ const clear = () => {
   playing = false;
   const startButton = document.querySelector("#start");
   startButton.innerHTML = "start";
-};
 
+  clearTimeout(timer);
+
+  const cellsList = document.querySelectorAll(".live");
+  cellsList.forEach((cell) => {
+    cell.className = "dead";
+  });
+
+  resetState();
+};
+const random = () => {
+  if (playing) return;
+  clear();
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      const cell = document.getElementById(i + "_" + j);
+      const liveOrDead = Math.random().toFixed();
+      if (liveOrDead == 1) {
+        cell.className = "live";
+        state[i][j] = 1;
+      }
+    }
+  }
+};
 document.addEventListener("DOMContentLoaded", () => {
   createTable();
   setup();
