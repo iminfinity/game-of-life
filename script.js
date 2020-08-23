@@ -5,6 +5,9 @@ let playing = false;
 let state = new Array(rows);
 let nextState = new Array(rows);
 
+let timer;
+let delayTime = 100;
+
 const initializeState = () => {
   for (let i = 0; i < rows; i++) {
     state[i] = new Array(cols);
@@ -21,6 +24,7 @@ const resetState = () => {
     }
   }
 };
+
 const countNeighbors = (row, col) => {
   let count = 0;
   if (row - 1 >= 0) {
@@ -66,12 +70,31 @@ const applyRules = (row, col) => {
   }
 };
 
+const updateState = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      state[i][j] = nextState[i][j];
+      nextState[i][j] = 0;
+    }
+  }
+};
+const updateView = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      const cell = document.getElementById(i + "_" + j);
+      if (state[i][j] == 1) cell.className = "live";
+      else cell.className = "dead";
+    }
+  }
+};
 const computeNextState = () => {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       applyRules(i, j);
     }
   }
+  updateState();
+  updateView();
 };
 
 function handleClick() {
@@ -107,6 +130,10 @@ const createTable = () => {
 
 const play = () => {
   computeNextState();
+
+  if (playing) {
+    timer = setTimeout(play, delayTime);
+  }
 };
 const setup = () => {
   const startButton = document.querySelector("#start");
@@ -118,6 +145,7 @@ function start() {
   if (playing) {
     playing = false;
     this.innerHTML = "continue";
+    clearTimeout(timer);
   } else {
     playing = true;
     this.innerHTML = "pause";
