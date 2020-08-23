@@ -1,16 +1,88 @@
 const rows = 24;
 const cols = 48;
+let playing = false;
 
-const initialize = () => {
-  createTable();
+let state = new Array(rows);
+let nextState = new Array(rows);
+
+const initializeState = () => {
+  for (let i = 0; i < rows; i++) {
+    state[i] = new Array(cols);
+    nextState[i] = new Array(cols);
+  }
+  resetState();
+};
+
+const resetState = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      state[i][j] = 0;
+      nextState[i][j] = 0;
+    }
+  }
+};
+const countNeighbors = (row, col) => {
+  let count = 0;
+  if (row - 1 >= 0) {
+    if (state[row - 1][col] == 1) count++;
+  }
+  if (row - 1 >= 0 && col - 1 >= 0) {
+    if (state[row - 1][col - 1] == 1) count++;
+  }
+  if (row - 1 >= 0 && col + 1 < cols) {
+    if (state[row - 1][col + 1] == 1) count++;
+  }
+  if (col - 1 >= 0) {
+    if (state[row][col - 1] == 1) count++;
+  }
+  if (col + 1 < cols) {
+    if (state[row][col + 1] == 1) count++;
+  }
+  if (row + 1 < rows) {
+    if (state[row + 1][col] == 1) count++;
+  }
+  if (row + 1 < rows && col - 1 >= 0) {
+    if (state[row + 1][col - 1] == 1) count++;
+  }
+  if (row + 1 < rows && col + 1 < cols) {
+    if (state[row + 1][col + 1] == 1) count++;
+  }
+
+  return count;
+};
+
+const applyRules = (row, col) => {
+  const numNeighbors = countNeighbors(row, col);
+  if (state[row][col] == 1) {
+    if (numNeighbors < 2) {
+      nextState[row][col] = 0;
+    } else if (numNeighbors <= 3) {
+      nextState[row][col] = 1;
+    } else {
+      nextState[row][col] = 0;
+    }
+  } else if (numNeighbors == 3) {
+    nextState[row][col] = 1;
+  }
+};
+
+const computeNextState = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      applyRules(i, j);
+    }
+  }
 };
 
 function handleClick() {
-  var classes = this.className;
+  let classes = this.className;
+  const [row, col] = this.id.split("_");
   if (classes === "live") {
     this.className = "dead";
+    state[row][col] = 0;
   } else {
     this.className = "live";
+    state[row][col] = 1;
   }
 }
 
@@ -33,6 +105,33 @@ const createTable = () => {
   table_container.append(table);
 };
 
+const play = () => {
+  computeNextState();
+};
+const setup = () => {
+  const startButton = document.querySelector("#start");
+  startButton.onclick = start;
+  const clearButton = document.querySelector("#clear");
+  clearButton.onclick = clear;
+};
+function start() {
+  if (playing) {
+    playing = false;
+    this.innerHTML = "continue";
+  } else {
+    playing = true;
+    this.innerHTML = "pause";
+    play();
+  }
+}
+const clear = () => {
+  playing = false;
+  const startButton = document.querySelector("#start");
+  startButton.innerHTML = "start";
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   createTable();
+  setup();
+  initializeState();
 });
