@@ -135,6 +135,78 @@ const play = () => {
     timer = setTimeout(play, delayTime);
   }
 };
+
+const gun = () => {
+  if (playing) {
+    return;
+  }
+  clear();
+  const ij = [
+    { x: 5, y: 1 },
+    { x: 5, y: 2 },
+    { x: 6, y: 1 },
+    { x: 6, y: 2 },
+
+    { x: 3, y: 35 },
+    { x: 4, y: 35 },
+    { x: 3, y: 36 },
+    { x: 4, y: 36 },
+
+    { x: 3, y: 21 },
+    { x: 4, y: 21 },
+    { x: 5, y: 21 },
+
+    { x: 3, y: 22 },
+    { x: 4, y: 22 },
+    { x: 5, y: 22 },
+
+    { x: 2, y: 23 },
+
+    { x: 1, y: 25 },
+    { x: 2, y: 25 },
+
+    { x: 6, y: 23 },
+
+    { x: 6, y: 25 },
+    { x: 7, y: 25 },
+
+    { x: 3, y: 14 },
+    { x: 3, y: 13 },
+    { x: 4, y: 12 },
+
+    { x: 5, y: 11 },
+    { x: 6, y: 11 },
+    { x: 7, y: 11 },
+
+    { x: 8, y: 12 },
+    { x: 9, y: 13 },
+    { x: 9, y: 14 },
+
+    { x: 6, y: 15 },
+
+    { x: 4, y: 16 },
+    { x: 8, y: 16 },
+
+    { x: 5, y: 17 },
+    { x: 6, y: 17 },
+    { x: 7, y: 17 },
+
+    { x: 6, y: 18 },
+  ];
+
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 37; j++) {
+      const cell = document.getElementById(i + "_" + j);
+      ij.forEach((xy) => {
+        if (xy.x == i && xy.y == j) {
+          cell.className = "live";
+          state[i][j] = 1;
+        }
+      });
+    }
+  }
+  console.log(state);
+};
 const setup = () => {
   const startButton = document.querySelector("#start");
   startButton.onclick = start;
@@ -142,6 +214,8 @@ const setup = () => {
   clearButton.onclick = clear;
   const randomButton = document.querySelector("#random");
   randomButton.onclick = random;
+  const gunButton = document.querySelector("#gun");
+  gunButton.onclick = gun;
 };
 function start() {
   if (playing) {
