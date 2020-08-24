@@ -16,4 +16,9 @@ All other live cells die in the next generation. Similarly, all other dead cells
 
 **The initial pattern constitutes the seed of the system. The first generation is created by applying the above rules simultaneously to every cell in the seed; births and deaths occur simultaneously, and the discrete moment at which this happens is sometimes called a tick. Each generation is a pure function of the preceding one. The rules continue to be applied repeatedly to create further generations**
 
+[Read More](http://web.mit.edu/sp.268/www/2010/lifeSlides.pdf)
+
+![Gosper Gun](https://www.conwaylife.com/w/images/9/9f/Gosperglidergun.png)  
+[Gosper Gun](https://www.conwaylife.com/wiki/Gosper_glider_gun)
+
 [DEMO](iminfinity.github.io/game-of-life)
