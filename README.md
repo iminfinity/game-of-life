@@ -18,4 +18,7 @@ All other live cells die in the next generation. Similarly, all other dead cells
 
 [Read More](http://web.mit.edu/sp.268/www/2010/lifeSlides.pdf)
 
+![Gospel Gun](https://www.conwaylife.com/w/images/9/9f/Gosperglidergun.png)  
+[Gospel Gun](https://www.conwaylife.com/wiki/Gosper_glider_gun)
+
 [DEMO](iminfinity.github.io/game-of-life)
