@@ -21,4 +21,6 @@ All other live cells die in the next generation. Similarly, all other dead cells
 ![Gosper Gun](https://www.conwaylife.com/w/images/9/9f/Gosperglidergun.png)  
 [Gosper Gun](https://www.conwaylife.com/wiki/Gosper_glider_gun)
 
+[Watch this awesome video](https://www.youtube.com/watch?v=C2vgICfQawE)
+
 [DEMO](iminfinity.github.io/game-of-life)
