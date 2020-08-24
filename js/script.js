@@ -1,4 +1,4 @@
-const rows = 150;
+const rows = 160;
 const cols = 350;
 let playing = false;
 
